@@ -1,0 +1,26 @@
+@timeSlot:timeSlot;
+
+.@{timeSlot}{
+    width:100%;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:space-between;
+    align-content:center;
+    font-size: @font-size-small;
+    &-item{
+        border:1px solid @border-color;
+        border-radius: @border-radius-base;
+        padding:18px 23px;
+        margin:7px 0;
+        &>span{
+            display:block;  
+            width: 60px;
+            line-height: 1.2;
+            text-align: center;
+        }
+    }
+    &-item.active{
+        color:@color-text-hint;
+        border-color:@color-primary;
+    }
+}

@@ -1,0 +1,35 @@
+html,body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+    font-family: @font-family-base;
+    position:relative;
+}
+.App{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:480px;
+}
+.App-caption{
+    font-size: @font-size-caption;
+    color:@color-text-base;
+    line-height: 1.8;
+    font-weight: @font-weight-bold;
+    margin-bottom: 3px;
+}
+.App-data{
+    width:100%;
+    margin-top: 10px;
+    line-height: 1.5;
+    border:1px solid transparent;
+    border-radius: @border-radius-base;
+    color:@color-text-base;
+    font-size: @font-size-base;
+    &>div{
+        background-color:@fill-body;
+        padding:10px;
+    }
+}

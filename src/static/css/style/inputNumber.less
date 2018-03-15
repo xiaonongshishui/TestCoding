@@ -1,0 +1,70 @@
+@inputNumberPrefix:inputNumber;
+@inputNumberHeight:37px;
+@inputNumberWidth:80px;
+
+.@{inputNumberPrefix}{
+    position:relative;
+    width:@inputNumberWidth;
+    display: inline-block;
+    &-handler{
+        position: absolute;
+        width:30px;
+        height:auto;
+        text-align: center;
+        line-height: 19px;
+        right:1px;
+        z-index:1;
+        cursor: pointer;
+        border-left:1px solid @border-color;
+        border-right:none;
+        i{
+            display: inline-block; 
+            color:@color-icon;
+            line-height: 1;  
+            vertical-align: baseline;
+            &:hover{
+                color:@color-primary-hover;
+            }
+        }
+    }
+    &-handler.disabled{
+        i{
+            color:@color-icon-diabled;
+        }
+    }
+    &-handler-up{
+        top:1px;
+        border-radius: 0 @border-radius-base 0 0;
+        border-bottom:1px solid @border-color;
+    }
+    &-handler-down{
+        bottom:1px;
+        top: auto;
+        left: auto;  
+        border-radius: 0 0 @border-radius-base 0;
+    }
+    &-handler-input{
+        position: relative;
+        width:100%;
+        border: none;
+        outline: none;
+        input{
+            outline: none;  
+            background-image: none;  
+            -webkit-appearance: none;  
+            width: 100%;  
+            text-align: center;  
+            padding-left: 15px;  
+            padding-right: 50px;  
+            -webkit-box-sizing: border-box;          
+            box-sizing: border-box;  
+            display: inline-block;  
+            height: 40px;  
+            line-height: 40px;  
+            border: 1px solid @border-color;  
+            border-radius: @border-radius-base;  
+
+        }
+    }
+    
+}
