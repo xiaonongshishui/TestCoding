@@ -42,7 +42,7 @@ export default class Frequency extends Component {
     const { handleSaveFrequency } = this.props;
     const { constantWords } = this.state;
     return <div>
-      <InputNumber min={0} setInputNumberValue={this.setInputNumberValue}/>
+      <InputNumber min={0}  setInputNumberValue={this.setInputNumberValue}/>
       <span className="colorBase" style={style}>{constantWords}</span> 
       <Select handleSaveFrequency={handleSaveFrequency} setSelectValue={this.setSelectValue}/>
     </div>

@@ -63,7 +63,7 @@ export default class TimeSlot extends Component {
     componentDidUpdate(prevProps, prevState) { 
         if (prevState.checked !== this.state.checked) { 
             const { handleSaveSlotData } = this.props;
-            const { timeSlots, checked } = this.state;
+            const { checked } = this.state;
             const checkedItems = checked.map((ele,index) => { 
                 return this.timeSlotsMap.get(ele);
             }).join(',');

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const Prompt = ({ isOpen, message }) =>
     <div className={`prompt ${isOpen?"prompt-active":"prompt-leave"}`}>

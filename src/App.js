@@ -4,7 +4,7 @@ import Tab from 'components/Tab';
 import Button from 'components/Button';
 import TimeSlot from 'components/TimeSlot';
 import Frequency from 'components/Frequency';
-import prompt from './utils/prompt';
+import prompt from 'utils/prompt';
 const TabPanel = Tab.TabPanel;
 
 
@@ -48,8 +48,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentIndex, slotData, frequencyData, slotResult, frequencyResult } = this.state;
-    console.log(frequencyData);
+    const { currentIndex, slotResult, frequencyResult } = this.state;
     return (
       <div className="App">
         <h1 className="App-caption">Select Patient Self-Monitoring Schedule*</h1>

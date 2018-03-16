@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import InputNumberHandler from './InputNumberHandler';
+import prompt from 'utils/prompt';
 
 export default class InputNumber extends Component {
     constructor(props) {
         super(props);
         this.state = {
             value: 1,
+            validValue:1,
             upDisabled: false,
-            downDisabled: false,
-        },
-            this.prevValue = 1;    
+            downDisabled: false
+        }   
     }
 
     componentDidMount() { 
@@ -18,10 +19,31 @@ export default class InputNumber extends Component {
         setInputNumberValue(this.state.value);
     }
 
+    componentWillUpdate(prevProps,prevState) { 
+        
+    }
+
     componentDidUpdate(prevProps,prevState) { 
-        if (prevState.value !== this.state.value) { 
-            const { setInputNumberValue } = this.props;
-            setInputNumberValue(this.state.value);
+        if (prevState.validValue !== this.state.validValue) {
+            let validValue = this.state.validValue;
+            const { min, max } = this.props;
+            const { setInputNumberValue} = this.props;
+            setInputNumberValue(validValue);
+            if (max !== undefined) { 
+                if (validValue >= max) {
+                    this.setState({ upDisabled: true });
+                } else { 
+                    this.setState({ upDisabled: false });
+                }
+            }
+            if (min !== undefined) { 
+                if (validValue <= min) {
+                    this.setState({ downDisabled: true });
+                } else { 
+                    this.setState({ downDisabled: false });
+                }
+            }
+            
         }
     }
 
@@ -34,69 +56,46 @@ export default class InputNumber extends Component {
     }
 
     handleOnBlurInputValue = () => { 
-        let { value ,max,min} = this.state;
+        let { max, min } = this.props;
+        let { value,validValue } = this.state;
         if (isNaN(value)) {
-            if (this.prevValue) {
-                value = this.prevValue;
-            }
+            value = validValue;
         }
         if (String(value).indexOf('.') !== -1) { 
             value = parseInt(value);
         }
+        let _value = value;
         if (max !== undefined) { 
-            
+            if (_value > max) {
+                prompt({message:"Exceed maximum: " + max});
+                value = validValue;
+            }
         }
-        this.setState({ value });
-        this.prevValue = value;
+        if (min !== undefined) { 
+            if (_value < min) {
+                prompt({message:"Less than minimum: " + min})
+                value = validValue;
+            }
+        }
+        this.setState({value,validValue:value});
+        
     }
 
     handleOnClickHandler = (type) => {
-        const { min, max } = this.props;
-        let { value, upDisabled, downDisabled } = this.state;
+        let { value } = this.state;
         if (value === "") {
             value = 0;
-            this.setState({ value });
-        }
-
-        if (min !== undefined) { 
-            if (value > min && downDisabled) { 
-                this.setState({ downDisabled: false })
-            }
-        }
-        if (max !== undefined) { 
-            if (value < max && upDisabled) { 
-                this.setState({ upDisabled: false });
-            }
+            this.setState({ value,validValue:value });
         }
         if (type === "up") {
-            if (max !== undefined && value === max) { 
-                this.setState({ upDisabled: true });
-                return;
-            }
             value++;
-            if ((max !== undefined && value <= max) || max === undefined) {
-                this.setState({ value })
-                if (value === max) {
-                    this.setState({ upDisabled: true })
-                }
-            }
         } else {
-            if (min !== undefined && value === min) { 
-                this.setState({ downDisabled: true });
-                return;
-            }
             value--;
-            if ((min !== undefined && value >= min) || min === undefined) {
-                this.setState({ value })
-                if (value === min) {
-                    this.setState({ downDisabled: true })
-                }
-            }
         }
+        this.setState({ value,validValue:value });
     }
 
     render() {
-        const { min, max } = this.props;
         const { value, upDisabled, downDisabled } = this.state;
         return <div className="inputNumber">
             <InputNumberHandler type="down" disabled={downDisabled} handleOnClickHandler={this.handleOnClickHandler} />

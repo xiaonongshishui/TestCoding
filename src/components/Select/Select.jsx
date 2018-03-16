@@ -42,9 +42,6 @@ export default class Select extends Component {
                 this.setState({classname})
             }
         }
-        if (prevState.value !== this.state.value) { 
-            const { handleSaveFrequency } = this.props;
-        }
     }
 
     componentDidUpdate(prevProps, prevState) { 

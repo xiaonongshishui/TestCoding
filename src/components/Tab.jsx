@@ -13,7 +13,7 @@ class Tab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentIndex: 1
+            currentIndex: -1
         }
     }
 
