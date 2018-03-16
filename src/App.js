@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   onTabChange = (prevIndex, currentIndex) => {
-    console.log(prevIndex, currentIndex);
     this.setState({ currentIndex });
   }
 

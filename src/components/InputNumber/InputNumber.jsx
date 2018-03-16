@@ -62,7 +62,7 @@ export default class InputNumber extends Component {
             value = validValue;
         }
         if (String(value).indexOf('.') !== -1) { 
-            value = parseInt(value);
+            value = parseInt(value,10);
         }
         let _value = value;
         if (max !== undefined) { 

@@ -2,6 +2,7 @@
 
 const autoprefixer = require('autoprefixer');
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -45,6 +46,22 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
   ? // Making sure that the publicPath goes back to to build folder.
     { publicPath: Array(cssFilename.split('/').length).join('../') }
   : {};
+
+//add theme to package.json + compile less
+const pkgPath = path.join(process.cwd(), 'package.json');
+const pkg = fs.existsSync(pkgPath) ? require(pkgPath) : {};
+let theme = {};
+if (pkg.theme && typeof (pkg.theme) === 'string') {
+  let cfgPath = pkg.theme;
+  // relative path
+  if (cfgPath.charAt(0) === '.') {
+    cfgPath = path.resolve(process.cwd(), cfgPath);
+  }
+  const getThemeConfig = require(cfgPath);
+  theme = getThemeConfig();
+} else if (pkg.theme && typeof (pkg.theme) === 'object') {
+  theme = pkg.theme;
+}
 
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
@@ -94,6 +111,8 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      "components": path.resolve(paths.appSrc, './components'),
+      "utils":path.resolve(paths.appSrc,'./utils')
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -166,7 +185,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.css$/,
+            test: /\.(less|css)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -205,6 +224,13 @@ module.exports = {
                         ],
                       },
                     },
+                    {
+                      loader: "less-loader",
+                      options: {
+                          "modifyVars":theme
+                      }
+                  
+                  }
                   ],
                 },
                 extractTextPluginOptions
@@ -217,6 +243,17 @@ module.exports = {
           // This loader doesn't use a "test" so it will catch all modules
           // that fall through the other loaders.
           {
+            test: /\.(eot|ttf|woff|woff2|svg|otf)$/,
+            // use: 'file-loader?name=fonts/[name].[ext]',
+            use: [{
+              loader: 'file-loader',
+              options: {
+                name: 'static/fonts/[name].[ext]',
+                //publicPath: '../'
+              }
+            }]
+          },
+          {
             loader: require.resolve('file-loader'),
             // Exclude `js` files to keep "css" loader working as it injects
             // it's runtime that would otherwise processed through "file" loader.
@@ -227,6 +264,7 @@ module.exports = {
               name: 'static/media/[name].[hash:8].[ext]',
             },
           },
+          
           // ** STOP ** Are you adding a new loader?
           // Make sure to add the new loader(s) before the "file" loader.
         ],

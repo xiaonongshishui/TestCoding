@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Options extends Component {
-    constructor(props) {
-        super(props);
-    };
     render() {
         return <li className="select-dorpdown-item" onClick={this.props.onClick}>
             {this.props.children}
@@ -14,9 +11,6 @@ class Options extends Component {
 
 
 export default class SelectDropdown extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     renderOptions = (opts) => {
         const { isOpen } = this.props;
