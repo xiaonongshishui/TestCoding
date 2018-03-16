@@ -64,7 +64,7 @@ class App extends Component {
           <Button onClick={this.handleSubmit}>Save</Button>
         </section>
         <section className="App-data">
-          <div>{currentIndex === 0?slotResult:frequencyResult}</div>
+          {currentIndex === 0 ? (slotResult ? <div>{slotResult}</div> : null) : (frequencyResult ? <div>{frequencyResult}</div>:null)}
         </section>
       </div>
     );
