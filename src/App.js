@@ -4,8 +4,9 @@ import Tab from 'components/Tab';
 import Button from 'components/Button';
 import TimeSlot from 'components/TimeSlot';
 import Frequency from 'components/Frequency';
-
+import prompt from './utils/prompt';
 const TabPanel = Tab.TabPanel;
+
 
 class App extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class App extends Component {
     } else {
       const { inputNumberValue, selectValue, constantWords } = frequencyData;
       if (inputNumberValue === "" || inputNumberValue === undefined || inputNumberValue === null) { 
-        alert("频次不合法");
+        prompt({ message: "Illegal Frequency!" });
         return;
       }
       this.setState({frequencyResult:`${inputNumberValue}  ${constantWords}  ${selectValue}`})

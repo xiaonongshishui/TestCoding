@@ -38,7 +38,7 @@ export default class SelectDropdown extends Component {
 
 
     render() {
-        const { options ,classname} = this.props;
+        const { options} = this.props;
         return <div>
 
             {this.renderOptions(options)}

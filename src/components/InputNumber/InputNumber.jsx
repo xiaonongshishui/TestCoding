@@ -9,7 +9,6 @@ export default class InputNumber extends Component {
             value: 1,
             upDisabled: false,
             downDisabled: false,
-            _value:1,
         }
     }
 
