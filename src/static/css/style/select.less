@@ -1,0 +1,161 @@
+@keyframes slideUpIn {
+    0% {
+      opacity: 0;
+      display: none;
+      -webkit-transform-origin: 0% 0%;
+              transform-origin: 0% 0%;
+      -webkit-transform: scaleY(0.8);
+              transform: scaleY(0.8);
+    }
+    100% {
+      opacity: 1;
+      display: block;
+      -webkit-transform-origin: 0% 0%;
+              transform-origin: 0% 0%;
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+    }
+  }
+  @-webkit-keyframes slideUpOut {
+    0% {
+      opacity: 1;
+      -webkit-transform-origin: 0% 0%;
+              transform-origin: 0% 0%;
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform-origin: 0% 0%;
+              transform-origin: 0% 0%;
+      -webkit-transform: scaleY(0.8);
+              transform: scaleY(0.8);
+    }
+  }
+  
+  @-webkit-keyframes slideDownIn {
+    0% {
+      opacity: 0;
+      -webkit-transform-origin: 100% 100%;
+              transform-origin: 100% 100%;
+      -webkit-transform: scaleY(0.8);
+              transform: scaleY(0.8);
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform-origin: 100% 100%;
+              transform-origin: 100% 100%;
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+    }
+  }
+  @-webkit-keyframes slideDownOut {
+    0% {
+      opacity: 1;
+      -webkit-transform-origin: 100% 100%;
+              transform-origin: 100% 100%;
+      -webkit-transform: scaleY(1);
+              transform: scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform-origin: 100% 100%;
+              transform-origin: 100% 100%;
+      -webkit-transform: scaleY(0.8);
+              transform: scaleY(0.8);
+    }
+  }
+
+  @selectPrefix:select;
+  @selectWidth:120px;
+  @selectHeight:37px;
+  @selectRight:11px;
+  @selectLeft:11px;
+  .@{selectPrefix}{
+    position:relative;
+    display: inline-block;
+    width:@selectWidth;
+    height:@selectHeight;
+    border:1px solid @border-color;
+    border-radius:@border-radius-base;
+    cursor:pointer;
+    transition:border-color .2s cubic-bezier(.645,.045,.355,1);
+    &-render{
+        position:relative;
+        display:block;
+        margin-left:@selectLeft;
+        margin-right:@selectRight;
+        line-height: @selectHeight - 2;
+        height: @selectHeight - 2;
+        color:#000;
+    }
+    &-arrow{
+        position:absolute;
+        top:50%;
+        margin-top:-6px;
+        display: inline-block;
+        vertical-align: baseline;
+        text-align: center;
+        right:@selectRight;
+        i{
+            transition: all ease-in .2s;
+            -webkit-font-smoothing:antialiased;
+        }
+    }
+    &-dropdown{
+        position: absolute;
+        width:100%;
+        line-height: 1.5;
+        color: rgba(0, 0, 0, 0.65);
+        margin-top: 7px;
+        padding: 0;
+        list-style: none;
+        background-color: #fff;
+        -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        outline: none;
+        font-size: 14px;
+        li{
+            padding:0 @selectLeft;
+            height: @selectHeight - 2;
+            line-height: @selectHeight - 2;
+            &:hover{
+                color:#000;
+                background-color:@fill-body 
+            }
+        }
+      }
+      &-dropdown-active{
+        -webkit-animation:.5s slideUpIn;
+        animation:.5s slideUpIn;
+      }
+      &-dropdown-leave{
+        -webkit-animation: .5s slideUpOut;
+                animation: .5s slideUpOut;
+      }
+      &-dropdown-hidden{
+        display: none;
+      }
+  }
+  .@{selectPrefix}.focus{
+    border-color:@color-primary;
+  }
+
+.@{selectPrefix}-open{
+    .@{selectPrefix}-dropdown{
+        display: block;
+    }
+    .@{selectPrefix}-arrow{
+        i{
+            transform:rotate(180deg)
+        }
+    }
+}
+.@{selectPrefix}-hide{
+    .@{selectPrefix}-dropdown{
+        display: none;
+    }
+}

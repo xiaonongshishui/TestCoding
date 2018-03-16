@@ -12,9 +12,10 @@ class App extends Component {
     super(props);
     this.state = {
       currentIndex: -1,
-      slotData: "",
-      frequencyData: "",
-      result: ""
+      slotData: null,
+      frequencyData: null,
+      slotResult: "",
+      frequencyResult:""
     }
   }
 
@@ -34,14 +35,20 @@ class App extends Component {
   handleSubmit = () => {
     const { currentIndex, slotData, frequencyData } = this.state;
     if (currentIndex === 0) {
-      this.setState({ result: slotData });
+      this.setState({ slotResult: slotData });
     } else {
-      this.setState({ result: frequencyData });
+      const { inputNumberValue, selectValue, constantWords } = frequencyData;
+      if (inputNumberValue === "" || inputNumberValue === undefined || inputNumberValue === null) { 
+        alert("频次不合法");
+        return;
+      }
+      this.setState({frequencyResult:`${inputNumberValue}  ${constantWords}  ${selectValue}`})
     }
   }
 
   render() {
-    const { currentIndex, slotData, frequencyData, result } = this.state;
+    const { currentIndex, slotData, frequencyData, slotResult, frequencyResult } = this.state;
+    console.log(frequencyData);
     return (
       <div className="App">
         <h1 className="App-caption">Select Patient Self-Monitoring Schedule*</h1>
@@ -57,7 +64,7 @@ class App extends Component {
           <Button onClick={this.handleSubmit}>Save</Button>
         </section>
         <section className="App-data">
-          {result ? <div>{result}</div> : null}
+          <div>{currentIndex === 0?slotResult:frequencyResult}</div>
         </section>
       </div>
     );

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const TimeSlotItem = ({ timeSlot, checked , handleOnClickItem }) => {
     const isChecked = checked.indexOf(timeSlot.id) !== -1;
@@ -94,4 +95,8 @@ export default class TimeSlot extends Component {
             }
         </div>
     }
+}
+
+TimeSlot.propTypes = {
+    handleSaveSlotData:PropTypes.func.isRequired
 }

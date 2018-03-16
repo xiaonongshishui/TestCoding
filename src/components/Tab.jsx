@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { inherits } from 'util';
-
+import PropTypes from 'prop-types';
 class TabPanel extends Component {
     constructor(props) {
         super(props);
@@ -54,4 +53,11 @@ class Tab extends Component {
     }
 }
 Tab.TabPanel = TabPanel;
+
+
+Tab.propTypes  = {
+    onTabChange: PropTypes.func.isRequired,
+    children:PropTypes.array.isRequired
+}
+
 export default Tab;

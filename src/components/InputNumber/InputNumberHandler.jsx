@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class inputNumberHandler extends Component {
     constructor(props) {
@@ -22,4 +23,10 @@ export default class inputNumberHandler extends Component {
             }
         </div>
     }
+}
+
+inputNumberHandler.propTypes  = {
+    type: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+    handleOnClickHandler:PropTypes.func.isRequired
 }
