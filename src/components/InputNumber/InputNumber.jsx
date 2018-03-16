@@ -9,7 +9,8 @@ export default class InputNumber extends Component {
             value: 1,
             upDisabled: false,
             downDisabled: false,
-        }
+        },
+            this.prevValue = 1;    
     }
 
     componentDidMount() { 
@@ -26,18 +27,27 @@ export default class InputNumber extends Component {
 
     handleOnChangeInputValue = (e) => {
         const value = e.target.value;
-        if (isNaN(value)) {
+        if (value !== "-" && isNaN(value)) { 
             return false;
         }
         this.setState({ value:value});
     }
 
     handleOnBlurInputValue = () => { 
-        let { value } = this.state;
+        let { value ,max,min} = this.state;
+        if (isNaN(value)) {
+            if (this.prevValue) {
+                value = this.prevValue;
+            }
+        }
         if (String(value).indexOf('.') !== -1) { 
             value = parseInt(value);
-            this.setState({value});
         }
+        if (max !== undefined) { 
+            
+        }
+        this.setState({ value });
+        this.prevValue = value;
     }
 
     handleOnClickHandler = (type) => {

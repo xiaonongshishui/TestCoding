@@ -10,7 +10,7 @@
     bottom:0;
     &-content{
         position: absolute;
-        top:50%;
+        top:5%;
         left:50%;
         transform: translate(-50%,-50%);
         padding: 10px 20px;
@@ -19,6 +19,10 @@
         font-size: @font-size-small;
         border-radius:@border-radius-base;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        i{
+            color:red;
+            margin-right:5px;
+        }
     }
     &-active{
         -webkit-animation:.5s slideUpIn;
